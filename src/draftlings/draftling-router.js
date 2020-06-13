@@ -16,6 +16,7 @@ draftlingRouter
     .route('/')
     .get((req, res, next) => {
         const knexInstance = req.app.get("db");
+        console.log(knexInstance)
         draftlingService
             .getAllDraftlings(knexInstance)
             .then((draftlings) => {
