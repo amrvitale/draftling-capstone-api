@@ -5,6 +5,7 @@ const cors = require('cors')
 const {CLIENT_ORIGIN} = require('./config')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
+const draftlingRouter = require('./draftlings/draftling-router')
 
 const app = express()
 
@@ -13,6 +14,7 @@ const morganOption = (NODE_ENV === 'production')
   : 'common';
 
 app.use(morgan(morganOption))
+
 app.use(
   cors({
       origin: CLIENT_ORIGIN
@@ -20,8 +22,11 @@ app.use(
 );
 
 app.use(helmet())
+app.options('*', cors());  // enable pre-flight
 
-app.get('/api/*',(req, res) => {
+app.use('/api/mydraftlings', draftlingRouter);
+
+app.get('/api/*', cors(), (req, res) => {
   res.json({ok: true});
 });
 
