@@ -1,5 +1,5 @@
-INSERT INTO draftlings ("content", "title")
+INSERT INTO draftlings ("id", "title", "content", "wordCount", "modified")
 VALUES
-('draftling1', 'here is my draftling'),
-('draftling2', 'here is my other draftling'),
-;
+('1','draftling1', 'here is my draftling''testing123','sixWordStory', 'June 13, 2020'),
+('2','draftling1', 'here is my other draftling''testing1234','sixWordStory', 'June 13, 2020');
+

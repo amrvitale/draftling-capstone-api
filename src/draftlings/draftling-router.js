@@ -9,7 +9,8 @@ const xss = require('xss');
 const serializeDraftling = draftling => ({
     ...draftling,
     title: xss(draftling.title),
-    content: xss(draftling.content)
+    content: xss(draftling.content),
+    wordCount: xss(draftling.wordCount)
 });
 
 draftlingRouter
@@ -29,8 +30,8 @@ draftlingRouter
     })
 
     .post(bodyParser, (req, res, next) => {
-        const {title, content} = req.body;
-        const newDraftling = { title, content};
+        const {title, content, wordCount, modified} = req.body;
+        const newDraftling = { title, content, wordCount, modified};
         draftlingService
             .insertDraftling(req.app.get("db"), newDraftling)
             .then((draftling) => {
@@ -81,7 +82,7 @@ draftlingRouter
 
     .patch(bodyParser, (req, res, next)=> {
         const {title, content} = req.body;
-        const draftlingToUpdate = {title, content};
+        const draftlingToUpdate = {title, content, wordCount, modified};
 
         const numberOfValues = Object.values(draftlingToUpdate).filter(Boolean).length;
         if (numberOfValues === 0) {
