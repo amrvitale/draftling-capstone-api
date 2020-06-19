@@ -13,7 +13,7 @@ const serializeDraftling = draftling => ({
     wordcount: xss(draftling.wordcount)
 });
 
-draftlingRouter
+updateDraftlingRouter
     .route('/')
     .get((req, res, next) => {
         const knexInstance = req.app.get("db");
@@ -29,24 +29,8 @@ draftlingRouter
             });
     })
 
-    .post(bodyParser, (req, res, next) => {
-        const {title, content, wordcount, modified} = req.body;
-        const newDraftling = { title, content, wordcount, modified};
-        draftlingService
-            .insertDraftling(req.app.get("db"), newDraftling)
-            .then((draftling) => {
-                res
-                 .status(201)
-                 .location(req.originalUrl + `${draftling.id}`)
-                 .json(serializeDraftling(draftling));
-            })
-            .catch((err) => {
-                console.log(err);
-                next(err);
-            });
-    });
-    
-    draftlingRouter
+
+    updraftlingRouter
         .route('/:id')
         .all((req,res, next) => {
             draftlingService.getById(
@@ -66,21 +50,27 @@ draftlingRouter
             .catch(next);
         })
     
-    .get((req, res, next) => {
-        return res.json(serializeDraftling(res.draftling));
-    })
 
-    .delete((req, res, next) => {
-        const { id } = req.params;
-        const knexInstance = req.app.get('db');
-        draftlingService.deleteDraftling(knexInstance, id)
-            .then(() => {
-                res.status(204).end();
-            })
-            .catch(next);
-    })
+    .put(bodyParser, (req, res, next)=> {
+        const {title, content} = req.body;
+        const draftlingToUpdate = {title, content, wordcount, modified};
 
-    
-
-
+        const numberOfValues = Object.values(draftlingToUpdate).filter(Boolean).length;
+        if (numberOfValues === 0) {
+            return res.status(400).json({
+                error: {
+                    message: 'request body must contain either  \'title\' or \'content\''
+                }
+            });
+        }
+        draftlingService.updateDraftling(
+            req.app.get('db'),
+            req.params.id,
+            draftlingToUpdate
+        )
+        .then(() => {
+            res.status(204).end();
+        })
+        .catch(next);
+    });
     module.exports = draftlingRouter;
