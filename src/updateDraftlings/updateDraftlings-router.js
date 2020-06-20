@@ -13,8 +13,8 @@ const serializeDraftling = draftling => ({
     wordcount: xss(draftling.wordcount)
 });
 
-updateDraftlingsRouter
-    .route('/edit/:id')
+/*updateDraftlingsRouter
+    .route('/')
     .get((req, res, next) => {
         const knexInstance = req.app.get("db");
         console.log(knexInstance)
@@ -27,11 +27,11 @@ updateDraftlingsRouter
                 console.log(err);
                 next(err);
             });
-    })
+    })*/
 
 
-    updateDraftlingsRouter
-        .route('/edit/:id')
+updateDraftlingsRouter
+        .route('/')
         .all((req,res, next) => {
             console.log('received put')
 
@@ -53,7 +53,7 @@ updateDraftlingsRouter
         })
     
 
-    .patch(bodyParser, (req, res, next)=> {
+    .put(bodyParser, (req, res, next)=> {
         const {title, wordcount, content} = req.query;
         const draftlingToUpdate = {title, content, wordcount, modified};
 
