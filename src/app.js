@@ -6,6 +6,7 @@ const {CLIENT_ORIGIN} = require('./config')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const draftlingRouter = require('./draftlings/draftling-router')
+const updateDraftlingsRouter = require('./updateDraftlings/updateDraftlings-router')
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use(helmet())
 app.options('*', cors());  // enable pre-flight
 
 app.use('/api/mydraftlings', draftlingRouter);
+app.use('/api/edit/:id', updateDraftlingsRouter);
 
 app.get('/api/*', cors(), (req, res) => {
   res.json({ok: true});

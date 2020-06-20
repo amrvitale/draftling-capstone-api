@@ -1,9 +1,9 @@
 const express = require('express');
 
-const draftlingRouter = express.Router();
+const updateDraftlingsRouter = express.Router();
 const bodyParser = express.json();
 const logger = require('../logger')
-const draftlingService = require('./draftling-service');
+const updateDraftlingsService = require('./updateDraftlings-service');
 const xss = require('xss');
 
 const serializeDraftling = draftling => ({
@@ -13,12 +13,12 @@ const serializeDraftling = draftling => ({
     wordcount: xss(draftling.wordcount)
 });
 
-updateDraftlingRouter
+updateDraftlingsRouter
     .route('/')
     .get((req, res, next) => {
         const knexInstance = req.app.get("db");
         console.log(knexInstance)
-        draftlingService
+        updateDraftlingService
             .getAllDraftlings(knexInstance)
             .then((draftlings) => {
                 res.json(draftlings.map((draftling) => serializeDraftling(draftling)));
@@ -30,13 +30,14 @@ updateDraftlingRouter
     })
 
 
-    updraftlingRouter
+    updateDraftlingsRouter
         .route('/:id')
         .all((req,res, next) => {
-            draftlingService.getById(
+            updateDraftlingsService.getById(
                 req.app.get('db'),
                 req.params.id
             )
+            console.log('received put')
 
             .then(draftling => {
                 if(!draftling) {
@@ -51,8 +52,8 @@ updateDraftlingRouter
         })
     
 
-    .put(bodyParser, (req, res, next)=> {
-        const {title, content} = req.body;
+    .patch(bodyParser, (req, res, next)=> {
+        const {title, wordcount, content} = req.query;
         const draftlingToUpdate = {title, content, wordcount, modified};
 
         const numberOfValues = Object.values(draftlingToUpdate).filter(Boolean).length;
@@ -63,7 +64,7 @@ updateDraftlingRouter
                 }
             });
         }
-        draftlingService.updateDraftling(
+        updateDraftlingsService.updateDraftling(
             req.app.get('db'),
             req.params.id,
             draftlingToUpdate
@@ -73,4 +74,4 @@ updateDraftlingRouter
         })
         .catch(next);
     });
-    module.exports = draftlingRouter;
+    module.exports = updateDraftlingsRouter;
