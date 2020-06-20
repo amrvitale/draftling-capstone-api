@@ -14,7 +14,7 @@ const serializeDraftling = draftling => ({
 });
 
 updateDraftlingsRouter
-    .route('/')
+    .route('/api/edit/:id')
     .get((req, res, next) => {
         const knexInstance = req.app.get("db");
         console.log(knexInstance)
@@ -31,13 +31,14 @@ updateDraftlingsRouter
 
 
     updateDraftlingsRouter
-        .route('/:id')
+        .route('/api/edit/:id')
         .all((req,res, next) => {
+            console.log('received put')
+
             updateDraftlingsService.getById(
                 req.app.get('db'),
                 req.params.id
             )
-            console.log('received put')
 
             .then(draftling => {
                 if(!draftling) {
