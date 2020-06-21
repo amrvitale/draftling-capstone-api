@@ -65,7 +65,7 @@ updateDraftlingsRouter
                 }
             });
         }
-        updateDraftlingsService.updateDraftling(
+        updateDraftlingsService.editDraftling(
             req.app.get('db'),
             req.params.id,
             draftlingToUpdate
