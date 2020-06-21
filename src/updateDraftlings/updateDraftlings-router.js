@@ -13,37 +13,17 @@ const serializeDraftling = draftling => ({
     wordcount: xss(draftling.wordcount)
 });
 
-/*updateDraftlingsRouter
-    .route('/')
-    .get((req, res, next) => {
-        const knexInstance = req.app.get("db");
-        console.log(knexInstance)
-        updateDraftlingService
-            .getAllDraftlings(knexInstance)
-            .then((draftlings) => {
-                res.json(draftlings.map((draftling) => serializeDraftling(draftling)));
-            })
-            .catch((err) => {
-                console.log(err);
-                next(err);
-            });
-    })*/
-
-
 updateDraftlingsRouter
-        .route('/')
+        .route('/:id')
         .all((req,res, next) => {
-            console.log('received put')
-
-            updateDraftlingsService.getById(
-                req.app.get('db'),
-                req.params.id
-            )
+            updateDraftlingsService
+            .getById(req.app.get('db'),req.params.id)
 
             .then(draftling => {
+                console.log(draftling);
                 if(!draftling) {
                     return res.status(404).json({
-                        error: {message: 'Draftling doesn\'t exist.'}
+                        error: {message: 'Draftling doesn\'t exist.'},
                     });
                 }
                 res.draftling = draftling;
@@ -54,22 +34,19 @@ updateDraftlingsRouter
     
 
     .put(bodyParser, (req, res, next)=> {
-        const {title, wordcount, content} = req.query;
-        const draftlingToUpdate = {title, content, wordcount, modified};
+        const {title, wordcount, content} = req.body;
+        const draftlingToUpdate = {title, content, wordcount};
 
         const numberOfValues = Object.values(draftlingToUpdate).filter(Boolean).length;
         if (numberOfValues === 0) {
             return res.status(400).json({
                 error: {
                     message: 'request body must contain either  \'title\' or \'content\''
-                }
+                },
             });
         }
-        updateDraftlingsService.editDraftling(
-            req.app.get('db'),
-            req.params.id,
-            draftlingToUpdate
-        )
+        updateDraftlingsService
+        .editDraftling(req.app.get('db'),req.params.id,draftlingToUpdate)
         .then(() => {
             res.status(204).end();
         })

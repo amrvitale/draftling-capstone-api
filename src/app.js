@@ -22,7 +22,7 @@ app.use(helmet())
 app.options('*', cors());  // enable pre-flight
 
 app.use('/api/mydraftlings', draftlingRouter);
-app.use('/edit/:id', updateDraftlingsRouter);
+app.use('/api/edit/', updateDraftlingsRouter);
 
 app.get('/api/*', cors(), (req, res) => {
   res.json({ok: true});
