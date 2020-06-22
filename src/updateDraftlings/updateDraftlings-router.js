@@ -10,12 +10,13 @@ const serializeDraftling = draftling => ({
     ...draftling,
     title: xss(draftling.title),
     content: xss(draftling.content),
-    wordcount: xss(draftling.wordcount)
+    wordcount: xss(draftling.wordcount),
+    genre: xss(draftling.genre)
 });
 
     updateDraftlingsRouter.route("/:id").put(bodyParser, (req, res, next) => {
-        const { title, wordcount, content } = req.body;
-        const draftlingToUpdate = { title, content, wordcount };
+        const { title, wordcount, genre, content } = req.body;
+        const draftlingToUpdate = { title, content, genre, wordcount };
       
         const numberOfValues = Object.values(draftlingToUpdate).filter(Boolean)
           .length;

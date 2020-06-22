@@ -3,5 +3,6 @@ CREATE TABLE draftlings (
     title TEXT NOT NULL,
     content TEXT,
     wordcount TEXT,
+    genre TEXT,
     modified TIMESTAMPTZ DEFAULT now() NOT NULL
 );
