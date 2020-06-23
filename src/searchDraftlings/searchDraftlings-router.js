@@ -22,6 +22,7 @@ searchDraftlingsRouter
             req.app.get("db"), 
             req.params.title
         )
+        console.log(req.app.get('db'))
         .then(draftling => {
             if(!draftling) {
                 return res.status(404).json({
@@ -34,9 +35,10 @@ searchDraftlingsRouter
             .catch(next);
         })
         searchDraftlingsRouter
-        .route('/')
+        .route('/search')
         .get((req, res, next) => {
             const knexInstance = req.app.get('db');
+            console.log(req.app.get('db'))
             console.log(knexInstance)
             searchDraftlingsService.getByGenre(
                 req.app.get('db'), 
@@ -55,12 +57,13 @@ searchDraftlingsRouter
             })
 
         searchDraftlingsRouter
-        .route('/')
+        .route('/search')
         .get((req, res, next) => { 
             const knexInstance = req.app.get('db');
             console.log(knexInstance)
+            console.log(req.app.get('db'))
             searchDraftlingsService.getByTitleAndGenre(
-                req.app.get('db'), req.params.title.genre 
+                req.app.get('db'), req.params.title.genre || ''
                 )
                 .then(draftling => {
                     if(!draftling) {
@@ -74,5 +77,7 @@ searchDraftlingsRouter
                     .catch(next);
 
         })     
+
+        console.log('can you see this?')
 module.exports = searchDraftlingsRouter;
 

@@ -1,5 +1,6 @@
 const searchDraftlingsService = {
     getByTitle(knex, title) {
+        console.log(title)
         return knex
             .from('draftlings')
             .select('*')
