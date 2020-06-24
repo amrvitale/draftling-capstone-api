@@ -4,7 +4,7 @@ const searchDraftlingsService = {
         return knex
             .from('draftlings')
             .select('*')
-            .where('title', title)
+            .where('title', 'ILIKE', title)
     },
 
     getByGenre(knex, genre) {
