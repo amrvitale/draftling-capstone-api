@@ -16,7 +16,7 @@ const serializeDraftling = draftling => ({
 });
 
         searchDraftlingsRouter
-        .route('/search')
+        .route('/')
         .get((req, res, next) => {
             console.log('test')
 
@@ -26,7 +26,7 @@ const serializeDraftling = draftling => ({
             // PSEUDOCODE:
             // break the query URL param into separate terms
             // get the data from the service based on the terms
-            .then(draftlings => {
+           /* .then(draftlings => {
                 if(!draftlings) {
                     return res.status(404).json({
                         error: {message: 'Error getting draftlings'}
@@ -40,7 +40,7 @@ const serializeDraftling = draftling => ({
                     // })
                     res.json({ draftling });
                 })
-                .catch(next);
+                .catch(next);*/
             })
 
         console.log('can you see this?')
