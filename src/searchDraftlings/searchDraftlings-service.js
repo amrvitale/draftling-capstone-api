@@ -14,12 +14,16 @@ const searchDraftlingsService = {
             .where('genre', genre);
     },
 
-    getByWordcounte(knex, wordcount) {
+    getByWordcount(knex, wordcount) {
         return knex
             .from('draftlings')
             .select('*')
             .where('wordcount', wordcount)
-    }
+    },
+
+    getAllDraftlings(knex) {
+        return knex.select('*').from('draftlings');
+    },
 }
 
 module.exports = searchDraftlingsService;

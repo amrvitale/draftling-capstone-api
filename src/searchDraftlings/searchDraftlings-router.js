@@ -16,7 +16,7 @@ const serializeDraftling = draftling => ({
 });
 
         searchDraftlingsRouter
-        .route('/search')
+        .route('/search/:query')
         .get((req, res, next) => {
             const knexInstance = req.app.get('db');
             console.log(req.app.get('db'))
