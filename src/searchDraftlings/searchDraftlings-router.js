@@ -16,11 +16,13 @@ const serializeDraftling = draftling => ({
 });
 
         searchDraftlingsRouter
-        .route('/search/:query')
+        .route('/search')
         .get((req, res, next) => {
+            console.log('test')
+
             const knexInstance = req.app.get('db');
-            console.log(req.app.get('db'))
-            console.log(knexInstance)
+            console.log(req.query)
+
             // PSEUDOCODE:
             // break the query URL param into separate terms
             // get the data from the service based on the terms
@@ -42,5 +44,6 @@ const serializeDraftling = draftling => ({
             })
 
         console.log('can you see this?')
+
 module.exports = searchDraftlingsRouter;
 
