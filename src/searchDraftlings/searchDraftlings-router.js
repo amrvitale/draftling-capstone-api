@@ -24,12 +24,18 @@ const serializeDraftling = draftling => ({
             // PSEUDOCODE:
             // break the query URL param into separate terms
             // get the data from the service based on the terms
-            .then(draftling => {
-                if(!draftling) {
+            .then(draftlings => {
+                if(!draftlings) {
                     return res.status(404).json({
-                        error: {message: 'Draftling doesn\'t exist.'}
+                        error: {message: 'Error getting draftlings'}
                         });
                     }
+                    // break the query URL param into separate terms
+                    // set the draftlings array = draftlings.filter(draftling = {
+                      // for each term:
+                        // if draftling[key] is not equal to term value, return false
+                      // return true
+                    // })
                     res.json({ draftling });
                 })
                 .catch(next);

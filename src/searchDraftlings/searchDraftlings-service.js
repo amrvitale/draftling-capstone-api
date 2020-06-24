@@ -4,7 +4,7 @@ const searchDraftlingsService = {
         return knex
             .from('draftlings')
             .select('*')
-            .where('title', title).first();
+            .where('title', title)
     },
 
     getByGenre(knex, genre) {
@@ -14,12 +14,11 @@ const searchDraftlingsService = {
             .where('genre', genre);
     },
 
-    getByTitleAndGenre(knex, title, genre) {
+    getByWordcounte(knex, wordcount) {
         return knex
             .from('draftlings')
             .select('*')
-            .where('title', title).first()
-            .andWhere('genre', genre).first();
+            .where('wordcount', wordcount)
     }
 }
 
