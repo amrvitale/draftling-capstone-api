@@ -18,15 +18,15 @@ const serializeDraftling = draftling => ({
         searchDraftlingsRouter
         .route('/')
         .get((req, res, next) => {
-            console.log('test')
 
             const knexInstance = req.app.get('db');
             console.log(req.query)
-
-            // PSEUDOCODE:
-            // break the query URL param into separate terms
-            // get the data from the service based on the terms
-           /* .then(draftlings => {
+            searchDraftlingsService
+              .getByTitle( 
+                req.app.get('db'),
+                req.params.title)
+                    
+              .then(draftlings => {
                 if(!draftlings) {
                     return res.status(404).json({
                         error: {message: 'Error getting draftlings'}
@@ -37,11 +37,11 @@ const serializeDraftling = draftling => ({
                       // for each term:
                         // if draftling[key] is not equal to term value, return false
                       // return true
-                    // })
-                    res.json({ draftling });
+                    // });
+                   res.json({ draftling })
                 })
-                .catch(next);*/
-            })
+                .catch(next)
+        })
 
         console.log('can you see this?')
 
