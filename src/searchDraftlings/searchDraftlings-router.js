@@ -20,40 +20,38 @@ const serializeDraftling = draftling => ({
         .get((req, res, next) => {
 
             const knexInstance = req.app.get('db');
-            //console.log(req.query)
+            console.log(req.query)
+            if (req.query.title) {
             searchDraftlingsService
               .getByTitle( 
                 req.app.get('db'),
                 req.query.title)
-            
+              }
+
+            if (req.query.genre){
             searchDraftlingsService
                 .getByGenre(
                   req.app.get('db'),
                   req.query.genre
                 )
+              }
 
+            if (req.query.wordcount) {    
               searchDraftlingsService
                 .getByWordcount(
                   req.app.get('db'),
                   req.query.wordcount
                 )
-                 
-              .then(draftlings => {
-                console.log(draftlings)
-                if(!draftlings) {
-                    return res.status(404).json({
-                        error: {message: 'Error getting draftlings'}
-                        });
-                    }
-                    // break the query URL param into separate terms
-                    // set the draftlings array = draftlings.filter(draftling = {
-                      // for each term:
-                        // if draftling[key] is not equal to term value, return false
-                      // return true
-                    // });
-                 return  res.json({ draftlings })
+                .then(draftlings => {
+                  console.log(draftlings)
+                  if(!draftlings) {
+                      return res.status(404).json({
+                          error: {message: 'Error getting draftlings'}
+                          });
+                      }
+                  return  res.json({ draftlings })
                 })
-                .catch(next)
+            } 
         })
 
         console.log('can you see this?')
