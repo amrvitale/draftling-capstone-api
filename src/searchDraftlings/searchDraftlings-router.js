@@ -18,30 +18,16 @@ const serializeDraftling = draftling => ({
         searchDraftlingsRouter
         .route('/')
         .get((req, res, next) => {
-
             const knexInstance = req.app.get('db');
             console.log(req.query)
-            if (req.query.title) {
+    
             searchDraftlingsService
-              .getByTitle( 
+              .searchDraftlings( 
                 req.app.get('db'),
-                req.query.title)
-              }
+                req.query.title,
+                req.query.genre,
+                req.query.wordcount)
 
-            if (req.query.genre){
-            searchDraftlingsService
-                .getByGenre(
-                  req.app.get('db'),
-                  req.query.genre
-                )
-              }
-
-            if (req.query.wordcount) {    
-              searchDraftlingsService
-                .getByWordcount(
-                  req.app.get('db'),
-                  req.query.wordcount
-                )
                 .then(draftlings => {
                   console.log(draftlings)
                   if(!draftlings) {
@@ -51,8 +37,7 @@ const serializeDraftling = draftling => ({
                       }
                   return  res.json({ draftlings })
                 })
-            } 
-        })
+            })
 
         console.log('can you see this?')
 
