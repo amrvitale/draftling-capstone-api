@@ -31,7 +31,8 @@ const searchDraftlingsService = {
         console.log('wordcount', wordcount);
         let results = knex
             .from('draftlings')
-            .select('*');
+            .select('*')
+           // .where status = published
         if (title != null) results = results.where('title', 'ILIKE', `%${title}%`);
         if (genre != null) results = results.where('genre', 'ILIKE', `%${genre}%`);
         if (wordcount != null) results = results.where('wordcount', 'ILIKE', `%${wordcount}%`);

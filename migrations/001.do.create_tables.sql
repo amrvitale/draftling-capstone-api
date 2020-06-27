@@ -4,5 +4,6 @@ CREATE TABLE draftlings (
     content TEXT,
     wordcount TEXT,
     genre TEXT,
-    modified TIMESTAMPTZ DEFAULT now() NOT NULL
+    modified TIMESTAMPTZ DEFAULT now() NOT NULL,
+    status TEXT
 );
