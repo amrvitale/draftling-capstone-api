@@ -11,19 +11,19 @@ const serializeDraftling = draftling => ({
     title: xss(draftling.title),
     content: xss(draftling.content),
     wordcount: xss(draftling.wordcount),
-    genre: xss(draftling.genre)
+    genre: xss(draftling.genre),
+    status: xss(draftling.status)
 });
 
     updateDraftlingsRouter.route("/:id").put(bodyParser, (req, res, next) => {
-        const { title, wordcount, genre, content } = req.body;
-        const draftlingToUpdate = { title, content, genre, wordcount };
-      
+        const { title, wordcount, genre, content, status } = req.body;
+        const draftlingToUpdate = { title, content, genre, wordcount, status };
         const numberOfValues = Object.values(draftlingToUpdate).filter(Boolean)
           .length;
         if (numberOfValues === 0) {
           return res.status(400).json({
             error: {
-              message: "request body must contain either  'title' or 'content'",
+              message: "request body must contain 'status'",
             },
           });
         }
@@ -33,8 +33,18 @@ const serializeDraftling = draftling => ({
             res.status(204).end();
           })
           .catch(next);
-      });
 
+        });
+          updateDraftlingsRouter.route("/:id/update_status").put(bodyParser, (req, res, next) => {
+            const { status } = req.body;
+            updateDraftlingsService
+              .publishDraftling(req.app.get("db", status, req.params.id))
+              .then(() => {
+                res.status(204).end();
+              })
+              .catch(next);
+      
+          })
 
       
 

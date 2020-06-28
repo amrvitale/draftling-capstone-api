@@ -11,7 +11,8 @@ const serializeDraftling = draftling => ({
     title: xss(draftling.title),
     content: xss(draftling.content),
     wordcount: xss(draftling.wordcount),
-    genre: xss(draftling.genre)
+    genre: xss(draftling.genre),
+    status: xss(draftling.status)
 });
 
 draftlingRouter

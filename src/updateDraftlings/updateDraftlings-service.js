@@ -1,3 +1,4 @@
+
 const updateDraftlingsService = {
 
     getById(knex, id) {
@@ -11,6 +12,12 @@ const updateDraftlingsService = {
         return knex('draftlings')
             .where( { id })
             .update(newDraftling)
+    },
+
+   publishDraftling(knex, id) {
+        return knex('draftlings')
+        .where('id', id)
+        .update({status: 'published'})
     }
 };
 
