@@ -35,7 +35,9 @@ const serializeDraftling = draftling => ({
           .catch(next);
 
         });
-          updateDraftlingsRouter.route("/:id/update_status").put(bodyParser, (req, res, next) => {
+          updateDraftlingsRouter.route("/").put(bodyParser, (req, res, next) => {
+            console.log("in the updateDraftlingsRouter")
+
             const { status } = req.body;
             updateDraftlingsService
               .publishDraftling(req.app.get("db", status, req.params.id))

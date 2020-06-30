@@ -15,6 +15,7 @@ const updateDraftlingsService = {
     },
 
    publishDraftling(knex, id) {
+       console.log('in the publish function')
         return knex('draftlings')
         .where('id', id)
         .update({status: 'published'})
