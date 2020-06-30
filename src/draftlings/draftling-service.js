@@ -24,6 +24,11 @@ const draftlingService = {
         .delete();
     },
 
+    editDraftling(knex, id, newDraftling) {
+        return knex('draftlings')
+            .where( { id })
+            .update(newDraftling)
+    },
    
 };
 

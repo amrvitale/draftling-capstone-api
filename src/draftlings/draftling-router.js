@@ -71,8 +71,33 @@ draftlingRouter
     .get((req, res, next) => {
         return res.json(serializeDraftling(res.draftling));
     })
+    .put(bodyParser, (req, res, next) => {
+        const { title, wordcount, genre, content, status } = req.body;
+        const draftlingToUpdate = { title, content, genre, wordcount, status };
+        const numberOfValues = Object.values(draftlingToUpdate).filter(Boolean)
+          .length;
 
-    .delete((req, res, next) => {
+        if (numberOfValues === 0) {
+          return res.status(400).json({
+            error: {
+              message: "request body must contain 'title', 'wordcount', or 'genre'",
+            },
+          });
+        }
+
+        draftlingService
+        .editDraftling(req.app.get("db"), req.params.id, draftlingToUpdate)
+        .then(() => {
+          res.status(204).end();
+        })
+        .catch(next);
+
+      });
+    
+
+    module.exports = draftlingRouter;
+
+    /*  .delete((req, res, next) => {
         const { id } = req.params;
         const knexInstance = req.app.get('db');
         draftlingService.deleteDraftling(knexInstance, id)
@@ -80,9 +105,4 @@ draftlingRouter
                 res.status(204).end();
             })
             .catch(next);
-    })
-
-    
-
-
-    module.exports = draftlingRouter;
+    }) */
