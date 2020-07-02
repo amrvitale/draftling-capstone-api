@@ -28,10 +28,11 @@ critiqueFreeformRouter
  })
 
  critiqueFreeformRouter
- .route('/draftling/:id')
+ .route('/:id')
  .post(bodyParser, (req, res, next) => {
-    const {opening, critFreeform} = req.body;
-    const freeFormCrit = {opening, critFreeform};
+     console.log('inside post')
+    const {opening, critfreeform} = req.body;
+    const freeFormCrit = {opening, critfreeform};
     critiqueFreeformService
     .insertFreeform(req.app.get("db"), freeFormCrit)
 

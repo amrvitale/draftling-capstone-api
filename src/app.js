@@ -29,8 +29,8 @@ app.options('*', cors());  // enable pre-flight
 
 app.use('/api/mydraftlings', draftlingRouter);
 app.use ('/api/search', searchDraftlingsRouter)
-app.use('/api/draftling/:id', critiqueFreeformRouter)
-app.use('/api/draftlings:id', critiqueTemplateRouter)
+app.use('/api/draftling/', critiqueFreeformRouter)
+app.use('/api/draftling/', critiqueTemplateRouter)
 
 app.get('/api/*', cors(), (req, res) => {
   res.json({ok: true});
