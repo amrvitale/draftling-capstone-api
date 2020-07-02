@@ -1,5 +1,7 @@
 const critiqueTemplateService = { 
-
+  getAllTemplates(knex) {
+    return knex.select('*').from('freeformcrits');
+},
   insertTemplate(knex, templateCrit) {
   return knex
       .insert(templateCrit)

@@ -1,4 +1,7 @@
 const critiqueFreeformService = { 
+    getAllFreeforms(knex) {
+        return knex.select('*').from('freeformcrits');
+    },
     
     insertFreeform(knex, freeformcrit) {
         return knex
