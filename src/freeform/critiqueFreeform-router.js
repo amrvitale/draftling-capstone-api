@@ -12,6 +12,22 @@ const serializeFreeformcrit = freeformcrit => ({
 });
 
 critiqueFreeformRouter
+ .route('/')
+ .get((req, res, next) => {
+     const knexInstance = req.app.get("db");
+     console.log(knexInstance)
+     critiqueFreeformService
+     .getAllFreeforms(knexInstance)
+     .then((freeformcrits) => {
+         res.json(freeformcrits.map((freeformcrit) => serializeFreeformcrit(freeformcrit)));
+     })
+     .catch((err) => {
+        console.log(err);
+        next(err);
+     });
+ })
+
+ critiqueFreeformRouter
  .route('/draftling/:id')
  .post(bodyParser, (req, res, next) => {
     const {opening, critFreeform} = req.body;
