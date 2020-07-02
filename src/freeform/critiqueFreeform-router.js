@@ -32,6 +32,7 @@ critiqueFreeformRouter
  .post(bodyParser, (req, res, next) => {
      console.log('inside post')
     const {opening, critfreeform} = req.body;
+    console.log(req.body)
     const freeFormCrit = {opening, critfreeform};
     critiqueFreeformService
     .insertFreeform(req.app.get("db"), freeFormCrit)
