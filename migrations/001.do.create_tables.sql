@@ -1,3 +1,4 @@
+DROP TYPE IF EXISTS status;
 CREATE TYPE status AS ENUM ('published','unpublished');
 
 CREATE TABLE draftlings (
