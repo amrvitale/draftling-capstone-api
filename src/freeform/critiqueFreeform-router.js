@@ -5,21 +5,19 @@ const logger = require('../logger')
 const critiqueFreeformService = require('./critiqueFreeform-service')
 const xss = require('xss');
 
-const serializeDraftling = draftling => ({
-    ...draftling,
-    title: xss(draftling.title),
-    content: xss(draftling.content),
-    wordcount: xss(draftling.wordcount),
-    genre: xss(draftling.genre),
-    status: xss(draftling.status)
+const serializeFreeformcrit = freeformcrit => ({
+    ...freeformcrit,
+    opening: xss(freeformcrit.opening),
+    critfreeform: xss(freeformcrit.critfreeform),
 });
 
 critiqueFreeformRouter
- .route('/')
+ .route('/draftling/:id')
  .post(bodyParser, (req, res, next) => {
     const {opening, critFreeform} = req.body;
     const freeFormCrit = {opening, critFreeform};
     critiqueFreeformService
+    .insertFreeform(req.app.get("db"), freeFormCrit)
 
  })
 

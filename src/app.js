@@ -9,6 +9,10 @@ const draftlingRouter = require('./draftlings/draftling-router')
 const draftlingService = require('./draftlings/draftling-service')
 const searchDraftlingsRouter = require('./searchDraftlings/searchDraftlings-router')
 const searchDraftlingsService = require('./searchDraftlings/searchDraftlings-service')
+const critiqueFreeformRouter = require('./freeform/critiqueFreeform-router')
+const critiqueFreeformService = require('./freeform/critiqueFreeform-service')
+const critiqueTemplateRouter = require('./template/critiqueTemplate-router')
+const critiqueTemplateService = require('./template/critiqueTemplate-service')
 
 const app = express()
 
@@ -25,6 +29,8 @@ app.options('*', cors());  // enable pre-flight
 
 app.use('/api/mydraftlings', draftlingRouter);
 app.use ('/api/search', searchDraftlingsRouter)
+app.use('/api/draftling/:id', critiqueFreeformRouter)
+app.use('/api/draftlings:id', critiqueTemplateRouter)
 
 app.get('/api/*', cors(), (req, res) => {
   res.json({ok: true});

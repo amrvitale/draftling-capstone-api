@@ -5,21 +5,24 @@ const logger = require('../logger')
 const critiqueTemplateService = require('./critiqueTemplate-service')
 const xss = require('xss');
 
-const serializeDraftling = draftling => ({
-    ...draftling,
-    title: xss(draftling.title),
-    content: xss(draftling.content),
-    wordcount: xss(draftling.wordcount),
-    genre: xss(draftling.genre),
-    status: xss(draftling.status)
+const serializeTemplateCrit = templateCrit => ({
+    ...templateCrit,
+    plot: xss(templateCrit.plot),
+    pov: xss(templateCrit.pov),
+    characters: xss(templateCrit.characters),
+    dialogue: xss(templateCrit.dialogue),
+    gramspell: xss(templateCrit.gramspell),
+    overall: xss(templateCrit.overall)
 });
 
 critiqueTemplateRouter
- .route('/')
+ .route('/draftling/:id')
  .post(bodyParser, (req, res, next) => {
     const {plot, pov, characters, dialogue, gramspell, overall} = req.body;
     const templateCrit = {plot, pov, characters, dialogue, gramspell, overall};
     critiqueTemplateService
+     .insertTemplate(req.app.get("db"), templateCrit)
+     
 
  })
 
