@@ -27,7 +27,7 @@ critiqueRouter
      critiqueService
      .getAllFreeforms(knexInstance)
      .then((freeformcrits) => {
-         res.json(freeformcrits.map((freeformcrit) => serializeFreeformcrit(freeformcrit)));
+         res.json(freeformcrits.map((freeformcrit) => serializeFreeform(freeformcrit)));
      })
      .catch((err) => {
         console.log(err);
