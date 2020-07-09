@@ -38,10 +38,20 @@ critiqueRouter
  .route(`/freeform/:id`)
  .post(bodyParser, (req, res, next) => {
     console.log('inside post for freeform', req.body);
-   const {opening, critfreeform} = req.body;
-   const freeFormCrit = {opening, critfreeform};
-   critiqueService
-   .insertFreeform(req.app.get("db"), freeFormCrit)
+    const {opening, critfreeform} = req.body;
+    const freeFormCrit = {opening, critfreeform};
+    critiqueService
+    .insertFreeform(req.app.get("db"), freeFormCrit)
+    .then((freeFormCrit) => {
+        res
+            .status(201)
+            .location(req.originalUrl + `${draftling.id}`)
+            .json(serializeFreeform(freeFormCrit));
+    })
+    .catch((err) => {
+        console.log(err);
+        next(err);
+    });
 
 })
  
@@ -66,10 +76,20 @@ critiqueRouter
 .route(`/template/:id`)
  .post(bodyParser, (req, res, next) => {
     console.log('inside post for template', req.body);
-   const {plot, pov, characters, dialogue, gramspell, overall} = req.body;
-   const templateCrit = { plot, pov, characters, dialogue, gramspell, overall};
-   critiqueService
-   .insertTemplate(req.app.get("db"), templateCrit)
+    const {plot, pov, characters, dialogue, gramspell, overall} = req.body;
+    const templateCrit = { plot, pov, characters, dialogue, gramspell, overall};
+    critiqueService
+        .insertTemplate(req.app.get("db"), templateCrit)
+        .then((templateCrit) => {
+            res
+            .status(201)
+            .location(req.originalUrl + `${draftling.id}`)
+            .json(serializeTemplate(templateCrit));
+        })
+        .catch((err) => {
+            console.log(err);
+        next(err);
+        });
 })
 
  module.exports = critiqueRouter;
