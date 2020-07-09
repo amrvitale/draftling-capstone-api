@@ -5,10 +5,10 @@ const logger = require('../logger')
 const critiqueService = require('./critique-service')
 const xss = require('xss');
 
-const serializeFreeform = freeformcrit => ({
-    ...freeformcrit,
-    opening: xss(freeformcrit.opening),
-    critfreeform: xss(freeformcrit.critfreeform),
+const serializeFreeform = freeformCrit => ({
+    ...freeformCrit,
+    opening: xss(freeformCrit.opening),
+    critfreeform: xss(freeformCrit.critfreeform),
 });
 const serializeTemplate = templateCrit => ({
     ...templateCrit,
@@ -26,8 +26,8 @@ critiqueRouter
      console.log(knexInstance)
      critiqueService
      .getAllFreeforms(knexInstance)
-     .then((freeformcrits) => {
-         res.json(freeformcrits.map((freeformcrit) => serializeFreeform(freeformcrit)));
+     .then((freeformCrits) => {
+         res.json(freeformCrits.map((freeformCrit) => serializeFreeform(freeformCrit)));
      })
      .catch((err) => {
         console.log(err);
@@ -39,14 +39,14 @@ critiqueRouter
  .post(bodyParser, (req, res, next) => {
     console.log('inside post for freeform', req.body);
     const {opening, critfreeform} = req.body;
-    const freeFormCrit = {opening, critfreeform};
+    const freeformCrit = {opening, critfreeform};
     critiqueService
-    .insertFreeform(req.app.get("db"), freeFormCrit)
-    .then((freeFormCrit) => {
+    .insertFreeform(req.app.get("db"), freeformCrit)
+    .then((freeformCrit) => {
         res
             .status(201)
-            .location(req.originalUrl + `${draftling.id}`)
-            .json(serializeFreeform(freeFormCrit));
+            .location(req.originalUrl + `${freeformCrit.id}`)
+            .json(serializeFreeform(freeformCrit));
     })
     .catch((err) => {
         console.log(err);

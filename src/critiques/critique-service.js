@@ -3,10 +3,10 @@ const critiqueService = {
         return knex.select('*').from('freeformcrits');
     },
     
-    insertFreeform(knex, freeFormCrit) {
-        console.log(knex, freeFormCrit)
+    insertFreeform(knex, freeformCrit) {
+        console.log(knex, freeformCrit)
         return knex
-            .insert(freeFormCrit)
+            .insert(freeformCrit)
             .into('freeformcrits')
             .returning('*')
             .then(rows => rows[0]);
