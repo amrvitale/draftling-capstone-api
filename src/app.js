@@ -24,6 +24,7 @@ app.use(morgan(morganOption))
 app.use(cors());
 
 app.use(helmet())
+app.disable('etag');
 app.options('*', cors());  // enable pre-flight
 
 app.use('/api/mydraftlings', draftlingRouter);
