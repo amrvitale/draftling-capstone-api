@@ -45,8 +45,8 @@ critiqueRouter
  .route(`/freeform/:id`)
  .post(bodyParser, (req, res, next) => {
     console.log('inside post for freeform', req.body);
-    const {opening, critfreeform} = req.body;
-    const freeformCrit = {opening, critfreeform};
+    const {opening, critfreeform, draftling_id} = req.body;
+    const freeformCrit = {opening, critfreeform, draftling_id};
     critiqueService
     .insertFreeform(req.app.get("db"), freeformCrit)
     .then((freeformCrit) => {
@@ -70,7 +70,7 @@ critiqueRouter
     console.log(knexInstance)
     critiqueService
     .getAllTemplates(knexInstance)
-    .then((templateCrit) => {
+    .then((templateCrits) => {
         res.json(templateCrits.map((templateCrit) => serializeTemplate(templateCrit)));
     })
     .catch((err) => {
