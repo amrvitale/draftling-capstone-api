@@ -22,18 +22,25 @@ const serializeTemplate = templateCrit => ({
 critiqueRouter
  .route('/freeform')
  .get((req, res, next) => {
-     const knexInstance = req.app.get("db");
-     console.log(knexInstance)
-     critiqueService
-     .getAllFreeforms(knexInstance)
-     .then((freeformCrits) => {
-         res.json(freeformCrits.map((freeformCrit) => serializeFreeform(freeformCrit)));
-     })
-     .catch((err) => {
-        console.log(err);
-        next(err);
-     });
- })
+    console.log("Getting critiques");
+    const knexInstance = req.app.get("db");
+    console.log(knexInstance)
+    critiqueService
+    .getAllFreeforms(knexInstance)
+    .then((freeformCrits) => {
+        console.log("Made it to .then");
+        const seralizedCrits = freeformCrits.map((freeformCrit) => serializeFreeform(freeformCrit));
+        console.log(seralizedCrits);
+        res.json(seralizedCrits);
+    })
+    .catch((err) => {
+       console.log("Entered catch");
+       console.log(err);
+       next(err);
+    });
+    console.log("Done getting critiques");
+})
+
  critiqueRouter
  .route(`/freeform/:id`)
  .post(bodyParser, (req, res, next) => {
