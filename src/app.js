@@ -32,8 +32,9 @@ app.use(`/api/draftling`, critiqueRouter);
 
 app.get('/api/*', cors(), (req, res) => {
   res.json({ok: true});
+  console.log(res.json, "res.json")
+
 });
-console.log(res.json, "res.json")
 
   app.use(function errorHandler(error, req, res, next) {
       let response
