@@ -8,10 +8,10 @@ const db = knex({
   client: 'pg',
   connection: DATABASE_URL,
 });
-console.log(DATABASE_URL)
+console.log(DATABASE_URL, "hey it's the db url!")
 
 app.set('db', db);
-console.log(db)
+console.log(db, "db")
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`)
