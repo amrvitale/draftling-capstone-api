@@ -87,14 +87,14 @@ critiqueRouter
 .route(`/template/:id`)
  .post(bodyParser, (req, res, next) => {
     console.log('inside post for template', req.body);
-    const {plot, pov, characters, dialogue, gramspell, overall} = req.body;
-    const templateCrit = { plot, pov, characters, dialogue, gramspell, overall};
+    const {plot, pov, characters, dialogue, gramspell, overall, draftling_id} = req.body;
+    const templateCrit = { plot, pov, characters, dialogue, gramspell, overall, draftling_id};
     critiqueService
         .insertTemplate(req.app.get("db"), templateCrit)
         .then((templateCrit) => {
             res
             .status(201)
-            .location(req.originalUrl + `${draftling.id}`)
+            .location(req.originalUrl + `${templateCrit.id}`)
             .json(serializeTemplate(templateCrit));
         })
         .catch((err) => {
