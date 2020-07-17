@@ -74,6 +74,8 @@ critiqueRouter
     .then((templateCrits) => {
         console.log('made it to .then')
        const serializedT = templateCrits.map((templateCrit)=> serializeTemplate(templateCrit));
+       console.log(serializedT);
+       res.json(serializedT);
     })
     .catch((err) => {
         console.log('entered catch')
