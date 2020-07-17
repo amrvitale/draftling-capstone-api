@@ -17,6 +17,7 @@ const critiqueService = {
     },
 
     insertTemplate(knex, templateCrit) {
+        console.log(knex, templateCrit)
         return knex
             .insert(templateCrit)
             .into('templatedcrits')

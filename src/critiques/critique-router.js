@@ -66,17 +66,21 @@ critiqueRouter
  critiqueRouter
  .route('/template')
  .get((req, res, next) => {
+     console.log('getting template crits');
     const knexInstance = req.app.get("db");
     console.log(knexInstance)
     critiqueService
     .getAllTemplates(knexInstance)
     .then((templateCrits) => {
-        res.json(templateCrits.map((templateCrit) => serializeTemplate(templateCrit)));
+        console.log('made it to .then')
+       const serializedT = templateCrits.map((templateCrit)=> serializeTemplate(templateCrit));
     })
     .catch((err) => {
+        console.log('entered catch')
        console.log(err);
        next(err);
     });
+    console.log('done getting templates')
 })
 
 critiqueRouter
