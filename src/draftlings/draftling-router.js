@@ -97,12 +97,4 @@ draftlingRouter
 
     module.exports = draftlingRouter;
 
-    /*  .delete((req, res, next) => {
-        const { id } = req.params;
-        const knexInstance = req.app.get('db');
-        draftlingService.deleteDraftling(knexInstance, id)
-            .then(() => {
-                res.status(204).end();
-            })
-            .catch(next);
-    }) */
+  
