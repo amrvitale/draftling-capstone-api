@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const supertest = require('supertest');
-const app = require('../app');
+const app = require('../src/app');
 
 describe('GET /search', () => {
     it('should return an array of draftlings', () => {

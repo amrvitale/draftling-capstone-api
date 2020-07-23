@@ -1,52 +1,52 @@
 const { expect } = require('chai');
 const supertest = require('supertest');
-const app = require('../app');
+const app = require('../src/app');
 
-describe('GET /drafting', () => {
-    it('should return an draftling/s page', () => {
+  describe('GET /freeform', () => {
+    it('should return an array of freeform critiques', () => {
         return supertest(app)
-        .get('/')
+        .get('/search')
         .expect(200)
         .expect('Content-Type', /json/)
         .then(res => {
             expect(res.body).to.be.an('array');
         });
     })
-  }); 
+  });
 
-  describe('GET /drafting', () => {
-    it('should return an draftling/s page', () => {
+  describe('POST /freeform/:id', () => {
+    it('should return an array of freeform critiques', () => {
         return supertest(app)
-        .get('/:id')
+        .get('/search')
         .expect(200)
         .expect('Content-Type', /json/)
         .then(res => {
             expect(res.body).to.be.an('array');
         });
     })
-  }); 
-
-describe('POST /draftling', () => {
-    it('should post a draftling', () => {
+  });
+  
+  describe('GET /template', () => {
+    it('should return an array of freeform critiques', () => {
         return supertest(app)
-        .post('/')
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .then(res => {
-            expect(res.body).to.be.an('object');
-        });
-    })
-})
-
-
-describe('PUT /draftling', () => {
-    it('should return an draftling/s page', () => {
-        return supertest(app)
-        .put('/:id')
+        .get('/search')
         .expect(200)
         .expect('Content-Type', /json/)
         .then(res => {
             expect(res.body).to.be.an('array');
         });
     })
-})
+  });
+
+  describe('POST /template/:id', () => {
+    it('should return an array of freeform critiques', () => {
+        return supertest(app)
+        .get('/search')
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .then(res => {
+            expect(res.body).to.be.an('array');
+        });
+    })
+  });
+  
