@@ -20,11 +20,10 @@ const serializeDraftling = draftling => ({
         .route('/')
         .get((req, res, next) => {
             const knexInstance = req.app.get('db');
-            console.log(req.query)
     
             searchDraftlingsService
               .searchDraftlings( 
-                req.app.get('db'),
+                knexInstance,
                 req.query.title,
                 req.query.genre,
                 req.query.wordcount)

@@ -33,6 +33,7 @@ draftlingRouter
 
     .post(bodyParser, (req, res, next) => {
         const {title, content, wordcount, genre, modified} = req.body;
+        console.log(req.body, "req")
         const newDraftling = { title, content, wordcount, genre, modified};
         draftlingService
             .insertDraftling(req.app.get("db"), newDraftling)
