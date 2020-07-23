@@ -18,12 +18,7 @@ const draftlingService = {
             .where('id', id).first();
     },
 
-    deleteDraftling(knex, id) {
-        return knex('draftlings')
-        .where({ id })
-        .delete();
-    },
-
+  
     editDraftling(knex, id, newDraftling) {
         return knex('draftlings')
             .where( { id })

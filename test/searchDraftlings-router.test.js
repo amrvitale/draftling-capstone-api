@@ -1,15 +1,13 @@
 const { expect } = require('chai');
 const supertest = require('supertest');
 const app = require('../src/app');
+const chai = require('chai');
 
-describe('GET /search', () => {
-    it('should return an array of draftlings', () => {
-        return supertest(app)
-        .get('/search')
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .then(res => {
-            expect(res.body).to.be.an('array');
-        });
-    })
+
+describe('GET endpoint - search page', () => {
+    it('GET / responds with 200', () => {
+      return supertest(app)
+        .get('/api/search')
+        .expect(200);
+    });
   });
